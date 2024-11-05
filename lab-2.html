@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Таблица товаров</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet"> crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Таблица товаров</h1>
+
+  <!-- Таблица товаров -->
+  <table class="table table-hover mt-3" id="productTable">
+    <thead>
+    <tr>
+      <th>Название</th>
+      <th>Категория</th>
+      <th>Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>Огурцы</td><td>Овощи</td><td>30</td></tr>
+    <tr><td>Помидоры</td><td>Овощи</td><td>45</td></tr>
+    <tr><td>Картофель</td><td>Овощи</td><td>20</td></tr>
+    <tr><td>Яблоки</td><td>Фрукты</td><td>60</td></tr>
+    <tr><td>Масло</td><td>Молочные продукты</td><td>150</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Кнопка и значки для категорий -->
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-primary" onclick="categorizeProducts()">Категоризовать</button>
+    <span>Низкая цена: <span id="lowCount">0</span></span>
+    <span>Средняя цена: <span id="midCount">0</span></span>
+    <span>Высокая цена: <span id="highCount">0</span></span>
+  </div>
+</div>
+
+<script>
+  function categorizeProducts() {
+    const rows = document.querySelectorAll("#productTable tbody tr");
+    let low = 0, mid = 0, high = 0;
+
+    rows.forEach(row => {
+      const price = parseInt(row.cells[2].textContent);
+      row.classList.remove("table-success", "table-warning", "table-danger");
+
+      if (price < 50) { row.classList.add("table-success"); low++; }
+      else if (price < 100) { row.classList.add("table-warning"); mid++; }
+      else { row.classList.add("table-danger"); high++; }
+    });
+
+    document.getElementById("lowCount").textContent = String(low);
+    document.getElementById("midCount").textContent = String(mid);
+    document.getElementById("highCount").textContent = String(high);
+  }
+</script>
+</body>
+</html>
